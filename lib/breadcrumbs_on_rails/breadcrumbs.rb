@@ -94,7 +94,12 @@ module BreadcrumbsOnRails
       end
 
       def render_element(element)
-        content = @context.link_to_unless_current(compute_name(element), compute_path(element))
+        # TODO add options to use link_to or link_to_unless_current
+        if element.path
+          content = @context.link_to(compute_name(element), compute_path(element))
+        else
+          content = compute_name(element)
+        end
         if @options[:tag]
           @context.content_tag(@options[:tag], content)
         else
