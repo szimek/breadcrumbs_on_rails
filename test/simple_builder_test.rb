@@ -8,7 +8,7 @@ class SimpleBuilderTest < ActionView::TestCase
     include ActionView::Helpers::UrlHelper
   end
 
-  
+
   def setup
     @template = TestTemplate.new
   end
