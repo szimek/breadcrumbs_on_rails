@@ -1,8 +1,8 @@
-# 
+#
 # = Breadcrumbs On Rails
 #
 # A simple Ruby on Rails plugin for creating and managing a breadcrumb navigation.
-# 
+#
 #
 # Category::    Rails
 # Package::     BreadcrumbsOnRails
@@ -15,10 +15,8 @@
 
 
 module BreadcrumbsOnRails
-  
   module Breadcrumbs
-
-    # 
+    #
     # = Builder
     #
     # The Builder class represents the abstract class for any custom Builder.
@@ -29,7 +27,6 @@ module BreadcrumbsOnRails
     # * <tt>#render</tt>: Renders and returns the collection of navigation elements
     #
     class Builder
-
       # Initializes a new Builder with <tt>context</tt>,
       # <tt>element</tt> and <tt>options</tt>.
       #
@@ -75,9 +72,7 @@ module BreadcrumbsOnRails
             else
               path.to_s
           end
-
         end
-
     end
 
 
@@ -92,7 +87,6 @@ module BreadcrumbsOnRails
     # pass the option :builder => BuilderClass to the <tt>render_breadcrumbs</tt> helper method.
     #
     class SimpleBuilder < Builder
-
       def render
         @elements.collect do |element|
           render_element(element)
@@ -107,25 +101,19 @@ module BreadcrumbsOnRails
           content
         end
       end
-
     end
-
 
     # = Element
     #
     # Represents a navigation element in the breadcrumb collection.
     #
     class Element
-
       attr_accessor :name, :path
 
       def initialize(name, path)
         self.name = name
         self.path = path
       end
-
     end
-
   end
-
 end

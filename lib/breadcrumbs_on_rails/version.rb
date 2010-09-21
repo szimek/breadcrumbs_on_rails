@@ -1,8 +1,8 @@
-# 
+#
 # = Breadcrumbs On Rails
 #
 # A simple Ruby on Rails plugin for creating and managing a breadcrumb navigation.
-# 
+#
 #
 # Category::    Rails
 # Package::     BreadcrumbsOnRails
@@ -15,7 +15,6 @@
 
 
 module BreadcrumbsOnRails
-
   module Version
     MAJOR = 1
     MINOR = 0
@@ -24,7 +23,5 @@ module BreadcrumbsOnRails
 
     STRING = [MAJOR, MINOR, PATCH, BUILD].compact.join('.')
   end
-
   VERSION = Version::STRING
-
 end

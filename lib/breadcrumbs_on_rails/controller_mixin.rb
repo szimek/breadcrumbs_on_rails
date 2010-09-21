@@ -1,8 +1,8 @@
-# 
+#
 # = Breadcrumbs On Rails
 #
 # A simple Ruby on Rails plugin for creating and managing a breadcrumb navigation.
-# 
+#
 #
 # Category::    Rails
 # Package::     BreadcrumbsOnRails
@@ -15,9 +15,7 @@
 
 
 module BreadcrumbsOnRails
-
   module ControllerMixin
-
     def self.included(base)
       base.extend         ClassMethods
       base.send :helper,  HelperMethods
@@ -29,7 +27,6 @@ module BreadcrumbsOnRails
     end
 
     module Utils
-
       def self.instance_proc(string)
         if string.kind_of?(String)
           proc { |controller| controller.instance_eval(string) }
@@ -56,11 +53,9 @@ module BreadcrumbsOnRails
           Array(value).map(&:to_s).to_set
         end
       end
-
     end
 
     module ClassMethods
-
       def add_breadcrumb(name, path, options = {})
         # This isn't really nice here
         if eval = Utils.convert_to_set_of_strings(options.delete(:eval), %w(name path))
@@ -72,7 +67,6 @@ module BreadcrumbsOnRails
           controller.send(:add_breadcrumb, name, path)
         end
       end
-
     end
 
     module InstanceMethods
@@ -85,11 +79,9 @@ module BreadcrumbsOnRails
       def breadcrumbs
         @breadcrumbs ||= []
       end
-
     end
 
     module HelperMethods
-
       def render_breadcrumbs(options = {}, &block)
         builder = (options.delete(:builder) || Breadcrumbs::SimpleBuilder).new(self, breadcrumbs, options)
         content = builder.render.html_safe
@@ -99,9 +91,6 @@ module BreadcrumbsOnRails
           content
         end
       end
-
     end
-
   end
-
 end
