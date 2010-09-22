@@ -2,7 +2,6 @@ require 'test_helper'
 
 
 class BuilderTest < ActiveSupport::TestCase
-
   class TestTemplate
     include ActionView::Helpers::TagHelper
     include ActionView::Helpers::UrlHelper
@@ -10,6 +9,7 @@ class BuilderTest < ActiveSupport::TestCase
     def url_for(params)
       "http://localhost?" + params.to_param
     end
+
 
     protected
 
@@ -28,15 +28,12 @@ class BuilderTest < ActiveSupport::TestCase
       def proc_for_path
         "http://localhost/#proc"
       end
-
   end
-  
 
   def setup
     @template = TestTemplate.new
     @element  = BreadcrumbsOnRails::Breadcrumbs::Element.new(nil, nil)
   end
-
 
   def test_initialize_should_require_context_and_elements
     assert_raise(ArgumentError) { BreadcrumbsOnRails::Breadcrumbs::Builder.new }
@@ -108,5 +105,4 @@ class BuilderTest < ActiveSupport::TestCase
 
     assert_equal("http://localhost/#string", @builder.send(:compute_path, @element))
   end
-
 end
