@@ -88,20 +88,23 @@ module BreadcrumbsOnRails
     #
     class SimpleBuilder < Builder
       def render
+        separator = @options[:separator] || BreadcrumbsOnRails::Config.separator
+
         @elements.collect do |element|
           render_element(element)
-        end.join(@options[:separator] || " &raquo; ")
+        end.join(separator)
       end
 
       def render_element(element)
-        # TODO add options to use link_to or link_to_unless_current
         if element.path
-          content = @context.link_to(compute_name(element), compute_path(element))
+          method = BreadcrumbsOnRails::Config.link_to_current ? :link_to : :link_to_unless_current
+          content = @context.send(method, compute_name(element), compute_path(element))
         else
           content = compute_name(element)
         end
-        if @options[:tag]
-          @context.content_tag(@options[:tag], content)
+
+        if tag = @options[:tag] || BreadcrumbsOnRails::Config.tag
+          @context.content_tag(tag, content)
         else
           content
         end

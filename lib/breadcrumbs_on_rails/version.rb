@@ -15,13 +15,5 @@
 
 
 module BreadcrumbsOnRails
-  module Version
-    MAJOR = 1
-    MINOR = 0
-    PATCH = 1
-    BUILD = nil
-
-    STRING = [MAJOR, MINOR, PATCH, BUILD].compact.join('.')
-  end
-  VERSION = Version::STRING
+  VERSION = "1.0.1"
 end

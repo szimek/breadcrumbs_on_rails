@@ -48,16 +48,32 @@ class SimpleBuilderTest < ActionView::TestCase
                      simplebuilder(@template, generate_elements(2)).render)
   end
 
-  def test_render_with_separator
+  def test_render_with_separator_from_config
+    swap BreadcrumbsOnRails::Config, :separator => " - " do
+        @template.expects(:current_page?).times(2).returns(false)
+    assert_dom_equal("<a href=\"/element/1\">Element 1</a> - <a href=\"/element/2\">Element 2</a>",
+                     simplebuilder(@template, generate_elements(2)).render)
+    end
+  end
+
+  def test_render_with_separator_from_options
     @template.expects(:current_page?).times(2).returns(false)
     assert_dom_equal("<a href=\"/element/1\">Element 1</a> - <a href=\"/element/2\">Element 2</a>",
                      simplebuilder(@template, generate_elements(2), :separator => " - ").render)
   end
 
-  def test_render_with_current_page
+  def test_render_with_current_page_should_not_render_link
     @template.expects(:current_page?).times(2).returns(false, true)
     assert_dom_equal("<a href=\"/element/1\">Element 1</a> &raquo; Element 2",
                      simplebuilder(@template, generate_elements(2)).render)
+  end
+
+  def test_render_with_current_page_should_render_link
+    swap BreadcrumbsOnRails::Config, :link_to_current => true do
+      @template.expects(:current_page?).times(0)
+      assert_dom_equal("<a href=\"/element/1\">Element 1</a> &raquo; <a href=\"/element/2\">Element 2</a>",
+                       simplebuilder(@template, generate_elements(2)).render)
+    end
   end
 
 

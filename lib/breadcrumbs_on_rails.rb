@@ -14,6 +14,20 @@
 #++
 
 module BreadcrumbsOnRails
+  module Config
+    mattr_accessor :link_to_current
+    @@link_to_current = false
+
+    mattr_accessor :separator
+    @@separator = " &raquo; "
+
+    mattr_accessor :tag
+    @@tag = nil
+
+    def self.setup
+      yield self
+    end
+  end
 end
 
 require 'breadcrumbs_on_rails/controller_mixin'
